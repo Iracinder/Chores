@@ -1,0 +1,10 @@
+{
+  "Toilet": {
+    "start_time": "2019-10-23 19:57:37.198410",
+    "threshold": 7
+  },
+  "Bed sheets": {
+    "start_time": "2019-10-19 23:54:11.125874",
+    "threshold": 14
+  }
+}
