@@ -21,6 +21,16 @@ def convert(element):
         return element
 
 
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
+
+
+@app.route('/main.js')
+def main():
+    return app.send_static_file('main.js')
+
+
 @app.route('/chores')
 def get_chores():
     chores_json = {chore_name: {parameter: convert(value)
@@ -40,4 +50,4 @@ def reset_chore(chore_name):
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0')
