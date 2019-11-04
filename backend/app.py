@@ -21,17 +21,7 @@ def convert(element):
         return element
 
 
-@app.route('/')
-def index():
-    return app.send_static_file('index.html')
-
-
-@app.route('/main.js')
-def main():
-    return app.send_static_file('main.js')
-
-
-@app.route('/chores')
+@app.route('/chores/list')
 def get_chores():
     chores_json = {chore_name: {parameter: convert(value)
                                 for parameter, value in settings.items()}

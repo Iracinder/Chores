@@ -97,7 +97,7 @@ updateTimer posix schedule =
 getChoreConf : Cmd Msg
 getChoreConf =
     Http.get
-        { url = "http://127.0.0.1:5000/chores"
+        { url = "http://127.0.0.1:8000/chores/list"
         , expect = Http.expectJson ChoreConf choresDecoder
         }
 
@@ -117,7 +117,7 @@ choreDecoder =
 updateChore : String -> Cmd Msg
 updateChore chore_name =
     Http.post
-        { url = "http://127.0.0.1:5000/chores/" ++ chore_name
+        { url = "http://127.0.0.1:8000/chores/" ++ chore_name
         , body = Http.emptyBody
         , expect = Http.expectWhatever ChoreReset
         }

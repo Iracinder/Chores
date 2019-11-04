@@ -1,2 +1,3 @@
 */elm-stuff*
-__pycache__
+*/__pycache__
+*/main.js
