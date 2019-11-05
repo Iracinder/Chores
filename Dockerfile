@@ -31,7 +31,8 @@ RUN chmod +x /bin/start.sh
 
 # Compile elm
 COPY frontend/ backend/ backend/static/index.html  /app/
-RUN elm make src/chores.elm --optimize --output=static/main.js
+#RUN elm make src/chores.elm --optimize --output=static/main.js
+COPY backend/static/main.js static/
 
 RUN chmod +x static
 RUN chmod +r index.html static/main.js
