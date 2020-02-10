@@ -1,12 +1,14 @@
-from fastapi import FastAPI
-from pathlib import Path
-import os
-import json
 import datetime
+import json
+import os
+from pathlib import Path
+
+from fastapi import FastAPI
+from starlette.responses import RedirectResponse
 
 app = FastAPI()
 
-CHORES_FILE = Path(os.environ.get('CHORES_JSON', 'chores.json'))
+CHORES_FILE = Path(os.environ.get('CHORES_JSON', 'app/chores.json'))
 
 
 def get_chore_conf():
@@ -21,20 +23,22 @@ def convert(element):
         return element
 
 
-@app.route('/chores/list')
+@app.get('/')
+def redirect():
+    return RedirectResponse(url='/docs')
+
+
+@app.get('/chores/list')
 def get_chores():
     chores_json = {chore_name: {parameter: convert(value)
                                 for parameter, value in settings.items()}
                    for chore_name, settings in get_chore_conf().items()}
     return chores_json
-    #response.headers.add('Access-Control-Allow-Origin', '*')
-    #return response
 
 
-@app.route('/chores/<chore_name>', methods=['POST'])
+@app.post('/chores/<chore_name>')
 def reset_chore(chore_name):
     chores_json = get_chore_conf()
     chores_json[chore_name]['start_time'] = str(datetime.datetime.now())
     CHORES_FILE.write_text(json.dumps(chores_json, indent=2))
     return 'Success'
-
